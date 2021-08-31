@@ -85,8 +85,9 @@ sub time_str_to_sec {
 my $count = 0;
 
 while (my $line = <$fh>) {
-	my ($user, $pid, $pvsz, $prss, $pcpu, $pthcount, $state, $etime, $ctime, $command) = split(/\s+/, $line);
+	my ($user, $pid, $pvsz, $prss, $pcpu, $pthcount, $state, $etime, $ctime, @command) = split(/\s+/, $line);
 
+	my $command = join(' ', @command);
 	next if $match_pid && $pid != $match_pid;
 	next if !$match_self && $pid == $$;
 	next if $exclude_pat && $command =~ $exclude_pat;
