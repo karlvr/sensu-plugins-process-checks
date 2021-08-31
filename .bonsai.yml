@@ -3,7 +3,7 @@ description: "#{repo}"
 builds:
 - platform: linux
   arch: any
-  asset_filename: "assets_#{version}.tar.gz"
+  asset_filename: "#{repo}_#{version}.tar.gz"
   sha_filename: "sha512-checksums.txt"
   filter:
   -  "entity.system.os == 'linux'"
