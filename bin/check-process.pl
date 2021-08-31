@@ -13,6 +13,7 @@ my $warn_under = 1; # Trigger a warning if under a number
 my $crit_under = 1; # Trigger a critial if under a number
 #my $metric; # Trigger a critical if there are METRIC procs
 my $match_self = 0; # Match itself
+my $match_parent = 0; # Match parent process
 my $cmd_pat; # Match a command against this pattern
 my $exclude_pat; # Don't match against a pattern to prevent false positives
 my $file_pid; # Check against a specific PID contained in the given file
@@ -36,6 +37,7 @@ GetOptions(
 	'critical-under|C=i' => \$crit_under,
 	#'metric|t=s' => \$metric,
 	'match-self|m' => \$match_self,
+	'match-parent|M' => \$match_parent,
 	'pattern|p=s' => \$cmd_pat,
 	'exclude-pattern|x=s' => \$exclude_pat,
 	'file-pid|f=s' => \$file_pid,
@@ -90,6 +92,7 @@ while (my $line = <$fh>) {
 	my $command = join(' ', @command);
 	next if $match_pid && $pid != $match_pid;
 	next if !$match_self && $pid == $$;
+	next if !$match_parent && $pid == getppid();
 	next if $exclude_pat && $command =~ $exclude_pat;
 	next if $cmd_pat && $command !~ $cmd_pat;
 	next if $vsz && $pvsz <= $vsz;
