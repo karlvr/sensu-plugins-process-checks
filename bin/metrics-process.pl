@@ -7,7 +7,7 @@ use Pod::Usage;
 use Sys::Hostname;
 use List::Util qw(any);
 
-my $scheme = hostname() . '.procs';
+my $scheme = hostname();
 my $match_self = 0; # Match itself
 my $match_parent = 0; # Match parent process
 my $cmd_pat; # Match a command against this pattern
@@ -103,9 +103,4 @@ while (my $line = <$fh>) {
 
 close($fh);
 
-sub output {
-	my ($name, $value) = @_;
-	print "$scheme.$name $value $now\n";
-}
-
-print("$scheme $count $now\n");
+print("$scheme.procs $count $now\n");
