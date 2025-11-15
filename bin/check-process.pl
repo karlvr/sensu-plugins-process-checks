@@ -112,7 +112,7 @@ while (my $line = <$fh>) {
 close($fh);
 
 my $msg = "Found $count matching processes";
-$msg .= "; cmd /$cmd_pat/" if $cmd_pat;
+$msg .= "; cmd $cmd_pat" if $cmd_pat;
 $msg .= "; state @states" if @states;
 $msg .= "; user @users" if @users;
 $msg .= "; vsz > $vsz" if $vsz;
